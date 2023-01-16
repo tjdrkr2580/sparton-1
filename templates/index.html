@@ -6,16 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Heutcha | 흣챠</title>
     <link rel="stylesheet" href="/static/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   </head>
   <body>
     <div class="heutcha-wrapper">
-      <header>
-        <h1></h1>
-        <input type="text" />
-        <button></button>
+      <header class="heutcha-header">
+        <h1 class="logo">Heutcha</h1>
+        <input type="text" placeholder="영화 제목을 작성해주세요." />
+        <button onclick="heutchaToggle()">추가하기</button>
       </header>
-      <main class="heucha-grid-wrapper"></main>
-      <footer class="heucha-footer">영화 추가하기</footer>
+      <section class="padding-t"></section>
+      <main class="heutcha-grid-wrapper">d</main>
+      <footer class="heutcha-footer">
+        <p>© 2023 by HEUCHA, Inc. All rights reserved.</p>
+      </footer>
     </div>
+    <section class="heutcha-toggle-layout">
+      <div class="heutcha-toggle">
+        <input type="text" placeholder="네이버 영화 링크를 추가해주세요." />
+        <div class="heucha-buttons">
+          <button id="heutcha-add">추가하기</button>
+          <button onclick="heutchaToggle()">취소</button>
+        </div>
+      </div>
+    </section>
   </body>
+  <script>
+    const heutchaToggle = () => {
+      $(".heutcha-toggle-layout").toggle();
+    };
+  </script>
 </html>
