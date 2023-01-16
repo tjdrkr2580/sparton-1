@@ -14,6 +14,11 @@ def home():
     return render_template('index.html')
 
 
+@app.route("/detail")
+def movie_detail():
+    return render_template("movie_detail.html")
+
+
 # 영화 목록 전체 조회 api
 @app.route('/movies', methods=["GET"])
 def movie_list_api():
