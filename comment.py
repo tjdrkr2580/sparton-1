@@ -2,11 +2,6 @@ from flask import jsonify, render_template, request
 from db import db
 
 
-@app.route("/detail")
-def movie_detail():
-    return render_template("movie_detail.html")
-
-
 @app.route("/comments", method=["GET"])
 def comments_get():
     comments_list = list(db.comments.find({}, {'_id': False}))

@@ -53,7 +53,7 @@
         success: function (response) {
           response["movies"].map((movie) => {
             index_html += `
-            <a href="${movie.m_id}" class="heutcha-grid">
+            <a href="/detail?id=${movie.m_id}" class="heutcha-grid">
           <img
             src="${movie.image}"
             alt="img"
