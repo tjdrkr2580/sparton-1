@@ -64,7 +64,7 @@ a {
 }
 
 .heutcha-wrapper {
-  padding: 0.8rem 0.8rem;
+  padding: 0 0.8rem 0.8rem 0.8rem;
   min-width: 100vw;
   min-height: 100vh;
   display: flex;
@@ -74,12 +74,14 @@ a {
 }
 
 .heutcha-header {
+  z-index: 999;
   background-color: white;
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   width: 90vw;
+  height: 5rem;
   align-items: center;
   justify-content: space-around;
   .logo {
@@ -90,7 +92,7 @@ a {
 }
 
 .heutcha-toggle-layout {
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   z-index: 999;
@@ -104,11 +106,16 @@ a {
 }
 
 .heutcha-toggle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   align-items: center;
   background-color: white;
+  display: flex;
   width: 30rem;
   height: 20rem;
-  display: flex;
+  position: absolute;
   flex-direction: column;
   justify-content: space-around;
   input {
@@ -121,6 +128,49 @@ a {
     display: flex;
     gap: 3rem;
     align-items: center;
+  }
+}
+
+.heutcha-grid-wrapper {
+  margin: 0 auto;
+  align-content: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  max-width: 70rem;
+  gap: 2rem;
+  .heutcha-grid {
+    padding: 0.6rem;
+    background-color: white;
+    cursor: pointer;
+    transition: 0.25s filter;
+    width: 20rem;
+    .text-flex {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      h1 {
+        font-size: 1.4rem;
+      }
+      span {
+        font-size: 1.2rem;
+      }
+      p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        word-wrap: break-word;
+        -webkit-line-clamp: 1;
+      }
+    }
+    img {
+      width: 100%;
+      height: 80%;
+      object-fit: cover;
+    }
+    &:hover {
+      filter: brightness(80%);
+    }
   }
 }
 
