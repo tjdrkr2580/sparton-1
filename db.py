@@ -1,4 +1,4 @@
-from pymongo import Mongoclient
+from pymongo import MongoClient
 
-client = MongoClient('mongodb+srv://test:sparta@cluster0.47veg7d.mongodb.net/?retryWrites=true&w=majority')
-db = client.sparton
+client = MongoClient('mongodb+srv://test:sparta@cluster0.zfuzrjp.mongodb.net/Cluster0?retryWrites=true&w=majority')
+db = client.dbsparta

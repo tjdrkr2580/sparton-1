@@ -1,8 +1,6 @@
 from flask import Flask, render_template, request, jsonify
-from movielist import movie_list, add_movie
+from movielist import movie_list
 from crawling import movies_post
-from comment import comment_get
-from
 
 import requests
 from bs4 import BeautifulSoup
@@ -26,12 +24,6 @@ def movie_list_api():
 @app.route('/movies', methods=["POST"])
 def movies_post_api():
   msg = movies_post()
-  return msg
-
-# 회원가입 api
-@app.route('/api/sign_up', methods=["POST"])
-def sign_up_api():
-  msg = sign_up()
   return msg
 
 
