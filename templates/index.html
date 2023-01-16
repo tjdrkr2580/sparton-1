@@ -6,19 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Heutcha | 흣챠</title>
     <link rel="stylesheet" href="/static/style.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.3/particles.js"
-      integrity="sha512-BgV3bZfMmUklIZI+dP0SILdmQ0RBY2gxegFFyfgo4Ui56WhKF4Pny9LsV/l96jxDDA+2w47zAXA4IyHo2UT/Qg=="
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
       crossorigin="anonymous"
-      referrerpolicy="no-referrer"
     ></script>
   </head>
   <body>
     <div class="heutcha-wrapper">
       <header class="heutcha-header">
         <h1 class="logo">Heutcha</h1>
-        <input type="text" placeholder="영화 제목을 작성해주세요." />
         <button onclick="heutchaToggle()">추가하기</button>
       </header>
       <section class="padding-t"></section>
@@ -51,7 +48,6 @@
     const heutchaToggle = () => {
       $(".heutcha-toggle-layout").toggle();
     };
-
     const movieGetReady = () => {
       let index_html = "";
       $.ajax({
@@ -90,7 +86,7 @@
             if (response != "error") {
               window.location.reload();
             } else {
-              alert('올바른 url을 입력하세요')
+              alert("올바른 url을 입력하세요");
             }
           },
         });
