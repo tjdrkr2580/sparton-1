@@ -51,6 +51,7 @@ button:hover {
 
 a {
   color: black;
+  text-decoration: none;
 }
 
 .heutcha-wrapper {
