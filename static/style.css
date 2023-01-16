@@ -216,7 +216,14 @@ a {
      object-fit: cover;
 }
 .heucha-detail-wrapper .heucha-info-wrapper h1 {
+  width: 30rem;
   align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  -webkit-line-clamp: 1;
   font-size: 3.5rem;
 }
 @media (min-width: 635px) {
@@ -270,7 +277,7 @@ a {
 }
 .heucha-detail-wrapper .heucha-contents-wrapper ul li .text button {
   white-space: nowrap;
-  margin-left: 3rem;
+  margin-left: 15rem;
 }
 .heucha-detail-wrapper .heucha-contents-wrapper ul li p {
   width: 75%;

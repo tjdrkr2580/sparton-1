@@ -211,7 +211,14 @@ a {
       object-fit: cover;
     }
     h1 {
+      width: 30rem;
       align-items: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      word-wrap: break-word;
+      -webkit-line-clamp: 1;
       @media (min-width: 635px) {
         align-self: flex-start;
       }
@@ -258,7 +265,7 @@ a {
           }
           button {
             white-space: nowrap;
-            margin-left: 3rem;
+            margin-left: 15rem;
           }
         }
 
