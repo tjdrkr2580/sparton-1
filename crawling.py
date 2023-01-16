@@ -50,7 +50,7 @@ def movies_post():
     return jsonify({'msg': '저장 완료!'})
 
 
-@app.route("/movie", methods=["GET"])
+@app.route("/movies", methods=["GET"])
 def movie_get():
     movie_list = list(db.movies.find({}, {'_id': False}))
     return jsonify({'movies': movie_list})
