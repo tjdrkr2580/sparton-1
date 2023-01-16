@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 from movielist import movie_list
 from crawling import movies_post
-from comment import comments_get, comment_post
+from comment import comments_get, comment_post, comment_del
 
 import requests
 from bs4 import BeautifulSoup
@@ -44,6 +44,11 @@ def comment_post_api():
     msg = comment_post()
     return msg
 
+#코멘트 삭제 api
+@app.route("/comments/", methods=["DELETE"])
+def comment_del_api():
+    msg = comment_del()
+    return msg
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
