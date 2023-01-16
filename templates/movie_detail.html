@@ -32,6 +32,7 @@
               class="comment"
               placeholder="후기를 입력하세요."
             />
+            <input type="password" class="password" placeholder="비밀번호" />
             <button onclick="movieCommentAdd()">제출</button>
           </div>
         </section>
@@ -42,8 +43,22 @@
         </p>
       </footer>
     </div>
+    <section class="heutcha-toggle-layout">
+      <div class="heutcha-toggle">
+        <input
+          type="password"
+          placeholder="해당 패스워드를 입력하세요."
+          class="remove-password"
+        />
+        <div class="heucha-buttons">
+          <button id="heutcha-add" onclick="commentRemove()">삭제하기</button>
+          <button onclick="heutchaToggle()">취소</button>
+        </div>
+      </div>
+    </section>
   </body>
   <script>
+    let commnets_list = [];
     let detail_html = ``;
     let content_html = ``;
     let url_href = window.location.href;
@@ -88,28 +103,78 @@
           response["comments"].map((comment) => {
             if (comment.m_id == Number(a)) {
               content_html += `
-                <li>
+              <li>
+              <div class="text">
                 <span>${comment.c_id}</span>
-                <p>${comment.comment}</p>
-              </li>
+                <button class="click" id="${comment.c_num}" onclick="heutchaToggle()">삭제</button>
+              </div>
+              <p>${comment.date}</p>
+              <p>${comment.comment}</p>
+            </li>
                 `;
+              commnets_list.push(comment);
             }
           });
           $(".heucha-contents").append(content_html);
         },
       });
     };
+
+    const commentRemove = () => {
+      let password = $(".remove-password").val();
+      let count = 0;
+      let num = 0;
+      commnets_list.map((comment) => {
+        if (comment.password === password) {
+          count = 1;
+          num = comment.c_num;
+        }
+      });
+      if (count === 1) {
+        $.ajax({
+          type: "DELETE",
+          url: "/comments",
+          data: {
+            c_num_give: num,
+            password_give: password,
+          },
+          success: function (response) {
+            alert("댓글 삭제 완료!");
+            window.location.reload();
+          },
+        });
+      } else {
+        alert("비밀번호가 틀렸습니다.");
+        $(".heutcha-toggle-layout").toggle();
+      }
+    };
+
+    const heutchaToggle = () => {
+      $(".heutcha-toggle-layout").toggle();
+    };
+
     const movieCommentAdd = () => {
       let name = $(".nickname").val();
       let comment = $(".comment").val();
+      let password = $(".password").val();
+      let date = new Date().toLocaleString();
       if (name !== "" && comment !== "") {
         $.ajax({
           type: "POST",
           url: "/comments",
-          data: { name_give: name, comment_give: comment, m_id_give: a },
+          data: {
+            name_give: name,
+            comment_give: comment,
+            m_id_give: a,
+            date_give: date,
+            password_give: password,
+          },
           success: function (response) {
             alert("댓글 추가 완료!");
             window.location.reload();
+          },
+          error: function (err) {
+            console.log(err);
           },
         });
       }

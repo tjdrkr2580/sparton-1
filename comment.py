@@ -36,18 +36,17 @@ def comment_post():
 
 def comment_del():
     c_num_receive = request.form['c_num_give']
-    password_receive = request.form['password']
+    password_receive = request.form['password_give']
     # db.comments_list
 
     # user = db.users.find_one({'id': id_receive}, {'_id': False})
 
     comment = db.comments.find_one({'c_num': int(c_num_receive)}, {'_id': False})
 
-    if comment['password'] == password_receive :
-        db.comments.delete_one({'c_num': int(c_num_receive)})
-        return jsonify({'delete':'success', 'msg': '삭제 성공'})
-    else :
-        return jsonify({'delete':'fail', 'msg': '비밀번호가 틀립니다!'})
+    
+    db.comments.delete_one({'c_num': int(c_num_receive)})
+    return jsonify({'delete':'success', 'msg': '삭제 성공'})
+
 
 
     #

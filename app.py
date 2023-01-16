@@ -45,7 +45,7 @@ def comment_post_api():
     return msg
 
 #코멘트 삭제 api
-@app.route("/comments/", methods=["DELETE"])
+@app.route("/comments", methods=["DELETE"])
 def comment_del_api():
     msg = comment_del()
     return msg
