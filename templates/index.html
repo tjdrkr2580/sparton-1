@@ -79,7 +79,11 @@
           url: "/movies",
           data: { url_give: url },
           success: function (response) {
-            window.location.reload();
+            if (response != "error") {
+              window.location.reload();
+            } else {
+              alert('올바른 url을 입력하세요')
+            }
           },
         });
       }
