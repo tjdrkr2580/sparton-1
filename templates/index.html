@@ -6,16 +6,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Heutcha | 흣챠</title>
     <link rel="stylesheet" href="/static/style.css" />
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <div class="heutcha-wrapper">
-      <header>
-        <h1></h1>
-        <input type="text" />
-        <button></button>
+      <header class="heutcha-header">
+        <h1 class="logo">Heutcha</h1>
+        <button onclick="heutchaToggle()">추가하기</button>
       </header>
-      <main class="heucha-grid-wrapper"></main>
-      <footer class="heucha-footer">영화 추가하기</footer>
+      <section class="padding-t"></section>
+      <main class="heutcha-grid-wrapper"></main>
+      <footer class="heucha-footer">
+        <p>
+          © 2023 by <span class="logo">Heutcha</span> Inc. All rights reserved.
+        </p>
+      </footer>
     </div>
+    <section class="heutcha-toggle-layout">
+      <div class="heutcha-toggle">
+        <input
+          type="text"
+          id="movie-add"
+          placeholder="네이버 영화 링크를 추가해주세요."
+          class="naver-movie"
+        />
+        <div class="heucha-buttons">
+          <button id="heutcha-add" onclick="posting()">추가하기</button>
+          <button onclick="heutchaToggle()">취소</button>
+        </div>
+      </div>
+    </section>
   </body>
+  <script>
+    $(document).ready(() => {
+      movieGetReady();
+    });
+    const heutchaToggle = () => {
+      $(".heutcha-toggle-layout").toggle();
+    };
+    const movieGetReady = () => {
+      let index_html = "";
+      $.ajax({
+        type: "GET",
+        url: "/movies",
+        data: {},
+        success: function (response) {
+          response["movies"].map((movie) => {
+            index_html += `
+            <a href="/detail?id=${movie.m_id}" class="heutcha-grid">
+          <img
+            src="${movie.image}"
+            alt="img"
+          />
+          <div class="text-flex">
+            <h1>${movie.title}</h1>
+            <span>${movie.director}</span>
+            <span>평점 : ${movie.star}</span>
+            <p>${movie.desc}</p>
+          </div>
+        </a>`;
+          });
+          $(".heutcha-grid-wrapper").append(index_html);
+        },
+      });
+    };
+
+    function posting() {
+      let url = $("#movie-add").val();
+      if (url !== "") {
+        $.ajax({
+          type: "POST",
+          url: "/movies",
+          data: { url_give: url },
+          success: function (response) {
+            if (response != "error") {
+              window.location.reload();
+            } else {
+              alert("올바른 url을 입력하세요");
+            }
+          },
+        });
+      }
+    }
+  </script>
 </html>

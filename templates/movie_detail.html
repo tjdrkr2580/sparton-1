@@ -4,7 +4,180 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Heutcha | 흣챠</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.3/particles.js"
+      integrity="sha512-BgV3bZfMmUklIZI+dP0SILdmQ0RBY2gxegFFyfgo4Ui56WhKF4Pny9LsV/l96jxDDA+2w47zAXA4IyHo2UT/Qg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
   </head>
-  <body></body>
+  <body>
+    <div class="heutcha-wrapper">
+      <header class="heutcha-header">
+        <h1 class="logo">Heutcha</h1>
+        <a href="/"><button id="prev">메인 화면으로</button></a>
+      </header>
+      <section class="padding-t"></section>
+      <main class="heucha-detail-wrapper">
+        <section class="heucha-info-wrapper"></section>
+        <section class="heucha-contents-wrapper">
+          <ul class="heucha-contents"></ul>
+          <div class="input-layout">
+            <input type="text" class="nickname" placeholder="닉네임" />
+            <input
+              type="text"
+              class="comment"
+              placeholder="후기를 입력하세요."
+            />
+            <input type="password" class="password" placeholder="비밀번호" />
+            <button onclick="movieCommentAdd()">제출</button>
+          </div>
+        </section>
+      </main>
+      <footer class="heucha-footer">
+        <p>
+          © 2023 by <span class="logo">Heutcha</span> Inc. All rights reserved.
+        </p>
+      </footer>
+    </div>
+    <section class="heutcha-toggle-layout">
+      <div class="heutcha-toggle">
+        <input
+          type="password"
+          placeholder="해당 패스워드를 입력하세요."
+          class="remove-password"
+        />
+        <div class="heucha-buttons">
+          <button id="heutcha-add" onclick="commentRemove()">삭제하기</button>
+          <button onclick="heutchaToggle()">취소</button>
+        </div>
+      </div>
+    </section>
+  </body>
+  <script>
+    let commnets_list = [];
+    let detail_html = ``;
+    let content_html = ``;
+    let url_href = window.location.href;
+    let url = new URL(url_href);
+    let a = url.searchParams.get("id");
+    $(document).ready(() => {
+      movieDetailGet();
+      movieCommentLoad();
+    });
+    const movieDetailGet = () => {
+      $.ajax({
+        type: "GET",
+        url: "/movies",
+        data: {},
+        success: function (response) {
+          response["movies"].map((movie) => {
+            if (movie.m_id === Number(a)) {
+              detail_html += `
+              <h1>${movie.title}</h1>
+          <img
+            src="${movie.image}"
+            alt=""
+          />
+          <span>감독 : ${movie.director}</span>
+          <p>
+           ${movie.desc}
+          </p>
+          <span>평점 : ${movie.star}</span>
+              `;
+            }
+          });
+          $(".heucha-info-wrapper").append(detail_html);
+        },
+      });
+    };
+    const movieCommentLoad = () => {
+      $.ajax({
+        type: "GET",
+        url: "/comments",
+        data: {},
+        success: function (response) {
+          response["comments"].map((comment) => {
+            if (comment.m_id == Number(a)) {
+              content_html += `
+              <li>
+              <div class="text">
+                <span>${comment.c_id}</span>
+                <button class="click" id="${comment.c_num}" onclick="heutchaToggle()">삭제</button>
+              </div>
+              <p>${comment.date}</p>
+              <p>${comment.comment}</p>
+            </li>
+                `;
+              commnets_list.push(comment);
+            }
+          });
+          $(".heucha-contents").append(content_html);
+        },
+      });
+    };
+
+    const commentRemove = () => {
+      let password = $(".remove-password").val();
+      let count = 0;
+      let num = 0;
+      commnets_list.map((comment) => {
+        if (comment.password === password) {
+          count = 1;
+          num = comment.c_num;
+        }
+      });
+      if (count === 1) {
+        $.ajax({
+          type: "DELETE",
+          url: "/comments",
+          data: {
+            c_num_give: num,
+            password_give: password,
+          },
+          success: function (response) {
+            alert("댓글 삭제 완료!");
+            window.location.reload();
+          },
+        });
+      } else {
+        alert("비밀번호가 틀렸습니다.");
+        $(".heutcha-toggle-layout").toggle();
+      }
+    };
+
+    const heutchaToggle = () => {
+      $(".heutcha-toggle-layout").toggle();
+    };
+
+    const movieCommentAdd = () => {
+      let name = $(".nickname").val();
+      let comment = $(".comment").val();
+      let password = $(".password").val();
+      let date = new Date().toLocaleString();
+      if (name !== "" && comment !== "") {
+        $.ajax({
+          type: "POST",
+          url: "/comments",
+          data: {
+            name_give: name,
+            comment_give: comment,
+            m_id_give: a,
+            date_give: date,
+            password_give: password,
+          },
+          success: function (response) {
+            alert("댓글 추가 완료!");
+            window.location.reload();
+          },
+          error: function (err) {
+            console.log(err);
+          },
+        });
+      }
+    };
+  </script>
 </html>

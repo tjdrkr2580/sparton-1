@@ -1,0 +1,331 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Noto+Sans+KR:wght@300;400;500&family=Roboto:wght@300;400;500&display=swap");
+
+// font-family: 'Lobster', cursive;
+// font-family: 'Noto Sans KR', sans-serif;
+// font-family: 'Roboto', sans-serif;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 10px;
+  font-family: "Noto Sans KR", sans-serif;
+  list-style: none;
+}
+
+body {
+  min-width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+input {
+  font-family: "Roboto", sans-serif;
+  width: 15rem;
+  color: rgb(131, 131, 131);
+  border: none;
+  font-size: 1.2rem;
+  padding: 0.3rem;
+  border-bottom: 0.025rem solid white;
+  background-color: transparent;
+  height: 3rem;
+  transition: 0.5s border;
+  &:focus {
+    outline: none;
+    border-bottom: 0.025rem solid #ff0558;
+  }
+}
+
+#heutcha-add {
+  border: none;
+  background-color: #ff0558;
+  color: white;
+}
+
+button {
+  //   background: linear-gradient(
+  //     108.3deg,
+  //     rgb(202, 73, 118) 15.2%,
+  //     rgb(255, 84, 84) 99.3%
+  //   );
+  border: 0.025rem solid #c6c6c6;
+  background-color: #4e4e4e;
+  color: #c6c6c6;
+  cursor: pointer;
+  font-size: 1.4rem;
+  border-radius: 0.8rem;
+  padding: 0.4rem 1rem 0.4rem 1rem;
+  transition: filter 0.25s;
+  &:hover {
+    filter: brightness(90%);
+  }
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+.heutcha-wrapper {
+  min-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.heutcha-header {
+  z-index: 999;
+  background-color: black;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  width: 100vw;
+  height: 6rem;
+  align-items: center;
+  justify-content: space-around;
+  .logo {
+    color: #ff0558;
+    font-family: "Lobster", cursive;
+    font-size: 3.5rem;
+  }
+}
+
+.heutcha-toggle-layout {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  animation: toggleAnimation 0.25s forwards ease-in-out;
+}
+
+.heutcha-toggle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  align-items: center;
+  background-color: white;
+  display: flex;
+  width: 30rem;
+  height: 20rem;
+  position: absolute;
+  flex-direction: column;
+  justify-content: space-around;
+  input {
+    padding: 0.4rem 0.7rem 0.4rem 0.7rem;
+    border-bottom: 0.025rem solid #121212;
+    width: 200px;
+    margin-top: 3rem;
+  }
+  .heucha-buttons {
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+  }
+}
+
+.heutcha-grid-wrapper {
+  margin: 0 auto;
+  align-content: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  @media (max-width: 660px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (max-width: 440px) {
+    grid-template-columns: 1fr;
+  }
+  max-width: 70rem;
+  gap: 2rem;
+  .heutcha-grid {
+    padding: 1.5rem 0.8rem;
+    background-color: white;
+    cursor: pointer;
+    transition: 0.25s filter;
+    width: 20rem;
+    .text-flex {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      h1 {
+        font-size: 1.4rem;
+      }
+      span {
+        font-size: 1.2rem;
+      }
+      p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        word-wrap: break-word;
+        -webkit-line-clamp: 1;
+      }
+    }
+    img {
+      width: 100%;
+      height: 80%;
+      object-fit: cover;
+    }
+    &:hover {
+      filter: brightness(80%);
+    }
+  }
+}
+
+.heucha-detail-wrapper {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  gap: 1rem;
+  @media (max-width: 635px) {
+    flex-direction: column;
+    padding-bottom: 5rem;
+  }
+  .heucha-info-wrapper {
+    @media (max-width: 635px) {
+      width: 320px;
+    }
+    width: 50vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-left: 1.5rem;
+    align-items: flex-start;
+    @media (max-width: 635px) {
+      margin-bottom: 5rem;
+    }
+    img {
+      width: 30rem;
+      height: 50rem;
+      object-fit: cover;
+    }
+    h1 {
+      width: 30rem;
+      align-items: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      word-wrap: break-word;
+      -webkit-line-clamp: 1;
+      @media (min-width: 635px) {
+        align-self: flex-start;
+      }
+      font-size: 3.5rem;
+    }
+    span {
+      white-space: nowrap;
+      font-size: 2rem;
+    }
+    p {
+      width: 30rem;
+      font-size: 1.4rem;
+      word-wrap: break-word;
+    }
+  }
+  .heucha-contents-wrapper {
+    width: 52%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    @media (max-width: 635px) {
+      width: 320px;
+    }
+    ul {
+      width: 90%;
+      height: auto;
+      max-height: 50rem;
+      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      overflow-y: auto;
+      li {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        .text {
+          display: flex;
+          align-items: center;
+          span {
+            white-space: nowrap;
+            font-size: 2rem;
+          }
+          button {
+            white-space: nowrap;
+            margin-left: 15rem;
+          }
+        }
+
+        p {
+          width: 75%;
+          font-size: 1.2rem;
+        }
+      }
+    }
+    .input-layout {
+      display: flex;
+      flex-direction: column;
+      padding-left: 1.5rem;
+      align-self: flex-start;
+      gap: 0.8rem;
+      .nickname {
+        width: 10rem;
+        align-self: flex-start;
+      }
+      .comment {
+        width: 20rem;
+        align-self: flex-start;
+      }
+      button {
+        font-size: 1.5rem;
+        align-self: flex-start;
+      }
+    }
+  }
+}
+
+footer {
+  width: 100vw;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  p {
+    color: white;
+    font-size: 1.5rem;
+    font-family: "Lobster", cursive;
+  }
+  .logo {
+    color: #ff0558;
+    font-family: "Lobster", cursive;
+    font-size: 1.5rem;
+  }
+  margin-top: 5rem;
+}
+
+.padding-t {
+  padding-top: 10rem;
+}
+
+@keyframes toggleAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
