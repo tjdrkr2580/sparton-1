@@ -114,11 +114,12 @@
       <div class="heutcha-toggle">
         <input
           type="text"
+          id="movie-add"
           placeholder="네이버 영화 링크를 추가해주세요."
           class="naver-movie"
         />
         <div class="heucha-buttons">
-          <button id="heutcha-add" onclick="heutchaMovieAdd()">추가하기</button>
+          <button id="heutcha-add">추가하기</button>
           <button onclick="heutchaToggle()">취소</button>
         </div>
       </div>
@@ -128,5 +129,21 @@
     const heutchaToggle = () => {
       $(".heutcha-toggle-layout").toggle();
     };
+
+    function posting() {
+      let url = $("#movie-add").val();
+
+      if (url !== "") {
+        $.ajax({
+          type: "POST",
+          url: "/movies",
+          data: { url_give: url },
+          success: function (response) {
+            alert(response["msg"]);
+            window.location.reload();
+          },
+        });
+      }
+    }
   </script>
 </html>
