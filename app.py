@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 from movielist import movie_list
 from crawling import movies_post
+from comment import comments_get, comment_post
 
 import requests
 from bs4 import BeautifulSoup
@@ -30,6 +31,18 @@ def movie_list_api():
 def movies_post_api():
   msg = movies_post()
   return msg
+
+#코멘트 전체 조회 api
+@app.route("/comments", methods=["GET"])
+def comments_get_api():
+    msg = comments_get()
+    return msg
+
+#코멘트 추가 api
+@app.route("/comments", methods=["POST"])
+def comment_post_api():
+    msg = comment_post()
+    return msg
 
 
 if __name__ == '__main__':
