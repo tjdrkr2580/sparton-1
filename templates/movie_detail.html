@@ -6,16 +6,142 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Heutcha | 흣챠</title>
     <link rel="stylesheet" href="/static/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   </head>
   <body>
     <div class="heutcha-wrapper">
       <header class="heutcha-header">
         <h1 class="logo">Heutcha</h1>
-        <button id="prev">메인 화면으로</button>
+        <a href="/"><button id="prev">메인 화면으로</button></a>
       </header>
-      <main class="heucha-grid-wrapper"></main>
-      <footer class="heucha-footer">footer</footer>
+      <section class="padding-t"></section>
+      <main class="heucha-detail-wrapper">
+        <section class="heucha-info-wrapper">
+          <h1>영웅</h1>
+          <img
+            src="https://movie-phinf.pstatic.net/20191121_221/1574298335357mqgLk_JPEG/movie_image.jpg?type=m203_290_2"
+            alt=""
+          />
+          <span>감독 : 김태현짱짱맨 123</span>
+          <p>
+            엄청난 싸움이 시작된다!! 엄청난 싸움의 시작!! 엄청난 싸움의 시작!!
+          </p>
+          <span>평점 : 9.5</span>
+        </section>
+        <section class="heucha-contents-wrapper">
+          <ul>
+            <li>
+              <span>이름</span>
+              <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Distinctio ex pariatur, ea autem recusandae commodi quidem
+                repellat quis, facere labore rem facilis, aperiam esse quia
+                nemo? Similique eos quisquam amet.
+              </p>
+            </li>
+            <li>
+              <span>이름</span>
+              <p>와 개쩐다 구독 눌러요 짱짱!</p>
+            </li>
+            <li>
+              <span>이름</span>
+              <p>와 개쩐다 구독 눌러요 짱짱!</p>
+            </li>
+            <li>
+              <span>이름</span>
+              <p>와 개쩐다 구독 눌러요 짱짱!</p>
+            </li>
+            <li>
+              <span>이름</span>
+              <p>와 개쩐다 구독 눌러요 짱짱!</p>
+            </li>
+            <li>
+              <span>이름</span>
+              <p>와 개쩐다 구독 눌러요 짱짱!</p>
+            </li>
+            <li>
+              <span>이름</span>
+              <p>와 개쩐다 구독 눌러요 짱짱!</p>
+            </li>
+            <li>
+              <span>이름</span>
+              <p>와 개쩐다 구독 눌러요 짱짱!</p>
+            </li>
+            <li>
+              <span>이름</span>
+              <p>와 개쩐다 구독 눌러요 짱짱!</p>
+            </li>
+            <li>
+              <span>이름</span>
+              <p>와 개쩐다 구독 눌러요 짱짱!</p>
+            </li>
+            <li>
+              <span>이름</span>
+              <p>와 개쩐다 구독 눌러요 짱짱!</p>
+            </li>
+            <li>
+              <span>이름</span>
+              <p>와 개쩐다 구독 눌러요 짱짱!</p>
+            </li>
+          </ul>
+          <div class="input-layout">
+            <input type="text" class="nickname" placeholder="닉네임" />
+            <input
+              type="text"
+              class="comment"
+              placeholder="후기를 입력하세요."
+            />
+            <button onclick="movieCommentAdd()">제출</button>
+          </div>
+        </section>
+      </main>
+      <footer class="heucha-footer">
+        © 2023 by HEUTCHA, Inc. All rights reserved.
+      </footer>
     </div>
   </body>
-  <script></script>
+  <script>
+    let movieDetailDate = [];
+    let url_href = window.location.href;
+    let url = new URL(url_href);
+    let a = url.searchParams.get("id");
+    $(document).ready(() => {
+      movieDetailGet();
+    });
+    const movieDetailGet = () => {
+      $.ajax({
+        type: "GET",
+        url: "/movies",
+        data: {},
+        success: function (response) {
+          response["movies"].map((movie) => {
+            if (movie.m_id === Number(a)) {
+              movieDetailDate.push(movie);
+            }
+          });
+        },
+      });
+    };
+    const movieDetailShow = () => {
+      let detail_html = `
+        
+      `;
+    };
+    const movieCommentAdd = () => {
+      let name = $(".nickname").val();
+      let comment = $(".comment").val();
+      console.log(name, comment);
+      if (name !== "" && comment !== "") {
+        $.ajax({
+          type: "POST",
+          url: "/comments",
+          data: { name_give: name, comment_give: comment, m_id_give: a },
+          success: function (response) {
+            alert("댓글 추가 완료!");
+            window.location.reload();
+          },
+        });
+      }
+    };
+  </script>
 </html>
