@@ -12,4 +12,12 @@ def add_movie():
     m_id_receive = request.form['m_id_give']
     m_star_receive = request.form['m_star_give']
     m_link_receive = request.form['m_link_give']
-    
+
+    doc = {
+        'm_id' = m_id_receive,
+        'm_star' = m_star_receive,
+        'm_link' = m_link_receive
+    }
+
+    db.movies.insert_one(doc)
+
